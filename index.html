@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Perfume Basics 🌸</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --rose: #e8b4b8;
+    --rose-light: #f9eded;
+    --rose-dark: #c2848a;
+    --gold: #c9a96e;
+    --gold-light: #f5ecd8;
+    --gold-dark: #9a7840;
+    --cream: #fdf8f4;
+    --text: #3a2e2e;
+    --text-muted: #8a7070;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(200,160,160,0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 1px;
+  }
+
+  .nav-logo span {
+    color: var(--rose-dark);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover {
+    color: var(--rose-dark);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 80px 20px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(232,180,184,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--rose-dark);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--rose-dark);
+  }
+
+  .hero p {
+    font-size: 16px;
+    color: var(--text-muted);
+    font-weight: 300;
+    max-width: 440px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 36px auto 0;
+    max-width: 200px;
+  }
+
+  .hero-divider::before,
+  .hero-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--rose));
+  }
+
+  .hero-divider::after {
+    background: linear-gradient(to left, transparent, var(--rose));
+  }
+
+  .hero-divider span {
+    font-size: 18px;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 60px 5%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 32px;
+    line-height: 1.2;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--rose-dark);
+  }
+
+  /* ── WHAT IS PERFUME ── */
+  .what-box {
+    background: white;
+    border-radius: 20px;
+    padding: 44px 50px;
+    border: 1px solid rgba(200,160,160,0.18);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .what-box p {
+    font-size: 15px;
+    line-height: 1.85;
+    color: #5a4a4a;
+    font-weight: 300;
+  }
+
+  .what-box p + p {
+    margin-top: 14px;
+  }
+
+  .quote-block {
+    background: var(--rose-light);
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    border: 1px solid rgba(194, 132, 138, 0.2);
+  }
+
+  .quote-block .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--rose-dark);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .quote-block .quote-sub {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ── NOTES CARDS ── */
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .note-card {
+    background: white;
+    border-radius: 20px;
+    padding: 36px 28px;
+    border: 1px solid rgba(200,160,160,0.15);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .note-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+  }
+
+  .note-card.top::before  { background: linear-gradient(to right, #a8d8ea, #b8e0d2); }
+  .note-card.mid::before  { background: linear-gradient(to right, #e8b4b8, #f4c2c9); }
+  .note-card.base::before { background: linear-gradient(to right, #c9a96e, #d4b97e); }
+
+  .note-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(180, 120, 120, 0.12);
+  }
+
+  .note-icon {
+    font-size: 36px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .note-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .note-card .tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--rose-light);
+    color: var(--rose-dark);
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+
+  .note-card p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
+
+  .note-examples {
+    font-size: 12px;
+    color: var(--gold-dark);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+  }
+
+  /* ── TYPES TABLE ── */
+  .table-wrapper {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(200,160,160,0.15);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead tr {
+    background: linear-gradient(to right, var(--rose-light), var(--gold-light));
+  }
+
+  thead th {
+    padding: 18px 28px;
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  tbody tr {
+    border-top: 1px solid rgba(200,160,160,0.1);
+    transition: background 0.2s;
+  }
+
+  tbody tr:hover {
+    background: var(--rose-light);
+  }
+
+  tbody td {
+    padding: 18px 28px;
+    font-size: 14.5px;
+    color: var(--text);
+    font-weight: 300;
+  }
+
+  tbody td:first-child {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--rose-dark);
+  }
+
+  .duration-pill {
+    display: inline-block;
+    background: var(--gold-light);
+    color: var(--gold-dark);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* ── FAMILIES ── */
+  .families-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .family-card {
+    background: white;
+    border-radius: 18px;
+    padding: 28px 28px;
+    border: 1px solid rgba(200,160,160,0.15);
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    transition: transform 0.25s ease;
+  }
+
+  .family-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(180,120,120,0.1);
+  }
+
+  .family-emoji {
+    font-size: 32px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .family-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .family-text p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── DIVIDER ── */
+  .section-sep {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, var(--rose), var(--gold));
+    margin: 0 auto 60px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: white;
+    border-top: 1px solid rgba(200,160,160,0.15);
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 60px;
+  }
+
+  footer p {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  footer p span {
+    color: var(--rose-dark);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">par<span>fum</span></div>
+  <ul class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="men.html">Men</a>
+    <a href="women.html">Women</a>
+    <a href="cart.html">Your Cart</a>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">The art of scent</p>
+  <h1>Perfume <em>Basics</em></h1>
+  <p>Discover the art, science, and elegance behind every fragrance you'll ever love.</p>
+  <div class="hero-divider"><span>✦</span></div>
+</div>
+
+<!-- WHAT IS PERFUME -->
+<div class="section">
+  <p class="section-label">Introduction</p>
+  <h2 class="section-title">What is <em>Perfume?</em></h2>
+  <div class="what-box">
+    <div>
+      <p>Perfume is a carefully crafted blend of essential oils, aroma compounds, fixatives, and alcohol — designed to give a person, object, or living space a pleasant scent.</p>
+      <p>But it is so much more than a product. It is a form of self-expression, a memory trigger, and a silent language. From ancient Egypt to modern luxury houses like Chanel and Dior, fragrance has always symbolized elegance, identity, and feeling.</p>
+    </div>
+    <div class="quote-block">
+      <p class="quote-text">"A woman who doesn't wear perfume has no future."</p>
+      <p class="quote-sub">— Coco Chanel</p>
+    </div>
+  </div>
+</div>
+
+<div class="section-sep"></div>
+
+<!-- FRAGRANCE NOTES -->
+<div class="section">
+  <p class="section-label">Composition</p>
+  <h2 class="section-title">Fragrance <em>Notes</em></h2>
+  <div class="notes-grid">
+
+    <div class="note-card top">
+      <span class="note-icon">🍃</span>
+      <span class="tag">First impression</span>
+      <h3>Top Notes</h3>
+      <p>The opening burst — what you smell in the first 15–30 minutes. Light, fresh, and fleeting.</p>
+      <span class="note-examples">Lemon · Bergamot · Grapefruit</span>
+    </div>
+
+    <div class="note-card mid">
+      <span class="note-icon">🌹</span>
+      <span class="tag">Heart of the scent</span>
+      <h3>Middle Notes</h3>
+      <p>The true character of the fragrance that emerges after the top notes fade, lasting 2–4 hours.</p>
+      <span class="note-examples">Rose · Lavender · Jasmine</span>
+    </div>
+
+    <div class="note-card base">
+      <span class="note-icon">🪵</span>
+      <span class="tag">Lasting depth</span>
+      <h3>Base Notes</h3>
+      <p>The deep, rich foundation that lingers for hours and gives the perfume its staying power.</p>
+      <span class="note-examples">Musk · Sandalwood · Vanilla</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-sep"></div>
+
+<!-- TYPES OF PERFUME -->
+<div class="section">
+  <p class="section-label">Concentration</p>
+  <h2 class="section-title">Types of <em>Perfume</em></h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Oil Concentration</th>
+          <th>Lasts For</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Parfum</td>
+          <td>20 – 40%</td>
+          <td><span class="duration-pill">8 – 24 hours</span></td>
+        </tr>
+        <tr>
+          <td>Eau de Parfum</td>
+          <td>15 – 20%</td>
+          <td><span class="duration-pill">5 – 8 hours</span></td>
+        </tr>
+        <tr>
+          <td>Eau de Toilette</td>
+          <td>5 – 15%</td>
+          <td><span class="duration-pill">3 – 5 hours</span></td>
+        </tr>
+        <tr>
+          <td>Eau de Cologne</td>
+          <td>2 – 5%</td>
+          <td><span class="duration-pill">1 – 3 hours</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section-sep"></div>
+
+<!-- FRAGRANCE FAMILIES -->
+<div class="section">
+  <p class="section-label">Scent Families</p>
+  <h2 class="section-title">Fragrance <em>Families</em></h2>
+  <div class="families-grid">
+
+    <div class="family-card">
+      <span class="family-emoji">🌸</span>
+      <div class="family-text">
+        <h3>Floral</h3>
+        <p>Soft, romantic, and timeless. Built around flower essences — rose, peony, lily. The most popular family in women's perfumery.</p>
+      </div>
+    </div>
+
+    <div class="family-card">
+      <span class="family-emoji">🌲</span>
+      <div class="family-text">
+        <h3>Woody</h3>
+        <p>Warm, earthy, and grounding. Think cedarwood, oud, and vetiver — often the backbone of masculine fragrances.</p>
+      </div>
+    </div>
+
+    <div class="family-card">
+      <span class="family-emoji">🍋</span>
+      <div class="family-text">
+        <h3>Citrus</h3>
+        <p>Bright, fresh, and uplifting. Perfect for everyday wear, combining lemon, orange, and neroli notes.</p>
+      </div>
+    </div>
+
+    <div class="family-card">
+      <span class="family-emoji">🔥</span>
+      <div class="family-text">
+        <h3>Oriental</h3>
+        <p>Rich, exotic, and sensual. Blends of amber, spice, and resin that leave a deep, unforgettable impression.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Made with <span>♡</span> for Perfume Basics &nbsp;·&nbsp; Semester 2 Frontend Project</p>
+</footer>
+
+</body>
+</html>
