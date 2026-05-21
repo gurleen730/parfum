@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Your Cart — Parfum</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --rose: #e8b4b8;
+    --rose-light: #f9eded;
+    --rose-dark: #c2848a;
+    --gold: #c9a96e;
+    --gold-light: #f5ecd8;
+    --gold-dark: #9a7840;
+    --cream: #fdf8f4;
+    --text: #3a2e2e;
+    --text-muted: #8a7070;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(200,160,160,0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--rose-dark); }
+
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--rose-dark); }
+  .nav-links a.active { color: var(--rose-dark); }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 70px 20px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(232,180,184,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--rose-dark);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 58px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--rose-dark); }
+
+  .hero p {
+    font-size: 15px;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 32px auto 0;
+    max-width: 200px;
+  }
+
+  .hero-divider::before { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--rose)); }
+  .hero-divider::after  { content: ''; flex: 1; height: 1px; background: linear-gradient(to left,  transparent, var(--rose)); }
+  .hero-divider span { font-size: 18px; }
+
+  /* ── MAIN LAYOUT ── */
+  .cart-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 48px 5% 60px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* ── CART ITEMS ── */
+  .cart-items-box {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(200,160,160,0.15);
+    overflow: hidden;
+  }
+
+  .cart-items-header {
+    padding: 22px 28px;
+    border-bottom: 1px solid rgba(200,160,160,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cart-items-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  .item-count {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── SINGLE ITEM ROW ── */
+  .cart-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 28px;
+    border-bottom: 1px solid rgba(200,160,160,0.1);
+    transition: background 0.2s;
+  }
+
+  .cart-item:last-child { border-bottom: none; }
+  .cart-item:hover { background: var(--rose-light); }
+
+  .item-emoji {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--gold-light), #ede0cc);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .item-info { flex: 1; }
+
+  .item-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .item-info p {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  .item-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  .item-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--gold-dark);
+  }
+
+  /* ── QTY CONTROLS ── */
+  .qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid rgba(200,160,160,0.3);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .qty-btn {
+    background: none;
+    border: none;
+    width: 30px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--rose-dark);
+    font-weight: 500;
+    transition: background 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .qty-btn:hover { background: var(--rose-light); }
+
+  .qty-num {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    min-width: 24px;
+    text-align: center;
+  }
+
+  .remove-btn {
+    background: none;
+    border: none;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .remove-btn:hover { color: var(--rose-dark); }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    padding: 60px 28px;
+    text-align: center;
+  }
+
+  .empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .empty-state h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .empty-state p {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .shop-btn {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+    background: linear-gradient(to right, var(--rose-dark), var(--gold-dark));
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: opacity 0.2s;
+  }
+
+  .shop-btn:hover { opacity: 0.85; }
+
+  /* ── ORDER SUMMARY ── */
+  .summary-box {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(200,160,160,0.15);
+    padding: 28px;
+    position: sticky;
+    top: 90px;
+  }
+
+  .summary-box h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(200,160,160,0.12);
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .summary-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  .summary-value {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .summary-divider {
+    height: 1px;
+    background: rgba(200,160,160,0.12);
+    margin: 16px 0;
+  }
+
+  .summary-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .summary-total-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  .summary-total-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--gold-dark);
+  }
+
+  .checkout-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+    background: linear-gradient(to right, var(--rose-dark), var(--gold-dark));
+    padding: 14px;
+    border-radius: 30px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.2s;
+    margin-bottom: 12px;
+  }
+
+  .checkout-btn:hover { opacity: 0.85; }
+
+  .clear-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: none;
+    padding: 10px;
+    border-radius: 30px;
+    border: 1px solid rgba(200,160,160,0.3);
+    font-weight: 400;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .clear-btn:hover {
+    background: var(--rose-light);
+    color: var(--rose-dark);
+    border-color: var(--rose);
+  }
+
+  .summary-note {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-top: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    z-index: 999;
+    white-space: nowrap;
+  }
+
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: white;
+    border-top: 1px solid rgba(200,160,160,0.15);
+    text-align: center;
+    padding: 28px 20px;
+  }
+
+  footer p {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  footer p span { color: var(--rose-dark); }
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-logo">par<span>fum</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="men.html">Men</a>
+    <a href="women.html">Women</a>
+    <a href="cart.html" class="active">Your Cart</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Your selection</p>
+  <h1>Your <em>Cart</em></h1>
+  <p id="hero-sub">Loading your items...</p>
+  <div class="hero-divider"><span>✦</span></div>
+</div>
+
+<!-- CART LAYOUT -->
+<div class="cart-wrapper">
+
+  <!-- LEFT: ITEMS -->
+  <div class="cart-items-box">
+    <div class="cart-items-header">
+      <h2>Cart Items</h2>
+      <span class="item-count" id="item-count">0 items</span>
+    </div>
+    <div id="cart-list">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <!-- RIGHT: SUMMARY -->
+  <div class="summary-box">
+    <h2>Order Summary</h2>
+
+    <div class="summary-row">
+      <span class="summary-label">Subtotal</span>
+      <span class="summary-value" id="subtotal">₹0</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">Delivery</span>
+      <span class="summary-value">Free</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">Tax (5% GST)</span>
+      <span class="summary-value" id="tax">₹0</span>
+    </div>
+
+    <div class="summary-divider"></div>
+
+    <div class="summary-total-row">
+      <span class="summary-total-label">Total</span>
+      <span class="summary-total-value" id="total">₹0</span>
+    </div>
+
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+    <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
+
+    <p class="summary-note">🔒 Secure checkout &nbsp;·&nbsp; Free delivery on all orders</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>Made with <span>♡</span> for Your Cart &nbsp;·&nbsp; Semester 2 Frontend Project</p>
+</footer>
+
+<script>
+  function getCart() {
+    try { return JSON.parse(localStorage.getItem('parfum_cart')) || []; }
+    catch { return []; }
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem('parfum_cart', JSON.stringify(cart));
+  }
+
+  function formatPrice(n) {
+    return '₹' + n.toLocaleString('en-IN');
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  }
+
+  function renderCart() {
+    const cart = getCart();
+    const listEl = document.getElementById('cart-list');
+    const countEl = document.getElementById('item-count');
+    const subtotalEl = document.getElementById('subtotal');
+    const taxEl = document.getElementById('tax');
+    const totalEl = document.getElementById('total');
+    const heroSub = document.getElementById('hero-sub');
+
+    const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+    countEl.textContent = totalQty + (totalQty === 1 ? ' item' : ' items');
+
+    if (cart.length === 0) {
+      heroSub.textContent = 'Your cart is empty — go find your scent.';
+      listEl.innerHTML = `
+        <div class="empty-state">
+          <span class="empty-icon">🛒</span>
+          <h3>Nothing here yet</h3>
+          <p>You haven't added any perfumes to your cart.<br>Go explore our collections!</p>
+          <a href="dashboard.html" class="shop-btn">Shop Now</a>
+        </div>`;
+      subtotalEl.textContent = '₹0';
+      taxEl.textContent = '₹0';
+      totalEl.textContent = '₹0';
+      return;
+    }
+
+    heroSub.textContent = 'You have ' + totalQty + (totalQty === 1 ? ' item' : ' items') + ' waiting for you.';
+
+    let subtotal = 0;
+    let html = '';
+
+    cart.forEach((item, index) => {
+      const lineTotal = item.price * item.qty;
+      subtotal += lineTotal;
+      html += `
+        <div class="cart-item" id="item-${index}">
+          <div class="item-emoji">${item.emoji || '🌸'}</div>
+          <div class="item-info">
+            <h3>${item.name}</h3>
+            <p>${formatPrice(item.price)} each</p>
+          </div>
+          <div class="item-right">
+            <span class="item-price">${formatPrice(lineTotal)}</span>
+            <div class="qty-controls">
+              <button class="qty-btn" onclick="changeQty(${index}, -1)">−</button>
+              <span class="qty-num">${item.qty}</span>
+              <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+            </div>
+            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+          </div>
+        </div>`;
+    });
+
+    listEl.innerHTML = html;
+
+    const tax = Math.round(subtotal * 0.05);
+    const total = subtotal + tax;
+
+    subtotalEl.textContent = formatPrice(subtotal);
+    taxEl.textContent = formatPrice(tax);
+    totalEl.textContent = formatPrice(total);
+  }
+
+  function changeQty(index, delta) {
+    const cart = getCart();
+    if (!cart[index]) return;
+    cart[index].qty += delta;
+    if (cart[index].qty <= 0) {
+      const name = cart[index].name;
+      cart.splice(index, 1);
+      showToast('✓ ' + name + ' removed');
+    }
+    saveCart(cart);
+    renderCart();
+  }
+
+  function removeItem(index) {
+    const cart = getCart();
+    if (!cart[index]) return;
+    const name = cart[index].name;
+    cart.splice(index, 1);
+    saveCart(cart);
+    showToast('✓ ' + name + ' removed');
+    renderCart();
+  }
+
+  function clearCart() {
+    if (getCart().length === 0) return;
+    localStorage.removeItem('parfum_cart');
+    showToast('Cart cleared');
+    renderCart();
+  }
+
+  function checkout() {
+    if (getCart().length === 0) {
+      showToast('Your cart is empty!');
+      return;
+    }
+    showToast('🎉 Order placed! Thank you ♡');
+    setTimeout(() => {
+      localStorage.removeItem('parfum_cart');
+      renderCart();
+    }, 1800);
+  }
+
+  renderCart();
+</script>
+
+</body>
+</html>
