@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Men's Collection — Parfum</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --rose: #e8b4b8;
+    --rose-light: #f9eded;
+    --rose-dark: #c2848a;
+    --gold: #c9a96e;
+    --gold-light: #f5ecd8;
+    --gold-dark: #9a7840;
+    --cream: #fdf8f4;
+    --text: #3a2e2e;
+    --text-muted: #8a7070;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(200,160,160,0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--rose-dark); }
+
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--rose-dark); }
+
+  .cart-link {
+    position: relative;
+  }
+
+  .cart-badge {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: var(--rose-dark);
+    color: white;
+    font-size: 10px;
+    font-weight: 500;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cart-badge.visible { display: flex; }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 70px 20px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(201,169,110,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 58px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--gold-dark); }
+
+  .hero p {
+    font-size: 15px;
+    color: var(--text-muted);
+    font-weight: 300;
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 32px auto 0;
+    max-width: 200px;
+  }
+
+  .hero-divider::before { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold)); }
+  .hero-divider::after  { content: ''; flex: 1; height: 1px; background: linear-gradient(to left,  transparent, var(--gold)); }
+  .hero-divider span { font-size: 18px; }
+
+  /* ── BRAND SECTION ── */
+  .brand-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 56px 5% 20px;
+  }
+
+  .brand-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 26px;
+  }
+
+  .brand-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .brand-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  .brand-title em { font-style: italic; color: var(--gold-dark); }
+
+  .view-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gold-dark);
+    border: 1px solid var(--gold);
+    padding: 8px 20px;
+    border-radius: 30px;
+    letter-spacing: 0.5px;
+    transition: all 0.25s ease;
+    background: white;
+    white-space: nowrap;
+    margin-bottom: 4px;
+  }
+
+  .view-more-btn:hover {
+    background: var(--gold-light);
+    border-color: var(--gold-dark);
+  }
+
+  /* ── CARDS ── */
+  .cards-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+
+  .brand-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(200,160,160,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .brand-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(150,120,80,0.12);
+  }
+
+  .card-img-placeholder {
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(135deg, var(--gold-light), #ede0cc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-body {
+    padding: 14px 14px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .card-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.2;
+  }
+
+  .card-body p {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.5;
+    flex: 1;
+    margin-top: 2px;
+  }
+
+  .card-price {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--gold-dark);
+    font-family: 'Cormorant Garamond', serif;
+    margin-top: 6px;
+  }
+
+  .card-btn {
+    display: inline-block;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: white;
+    background: linear-gradient(to right, var(--gold-dark), #b8934a);
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+    margin-top: 10px;
+    font-family: 'DM Sans', sans-serif;
+    width: 100%;
+  }
+
+  .card-btn:hover { opacity: 0.88; }
+
+  .card-btn.added {
+    background: linear-gradient(to right, #7aaa7a, #5a9a5a);
+    transform: scale(0.97);
+  }
+
+  /* ── SEPARATOR ── */
+  .section-sep {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, var(--gold), var(--rose));
+    margin: 48px auto 0;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    z-index: 999;
+    white-space: nowrap;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: white;
+    border-top: 1px solid rgba(200,160,160,0.15);
+    text-align: center;
+    padding: 28px 20px;
+    margin-top: 70px;
+  }
+
+  footer p {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  footer p span { color: var(--rose-dark); }
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ Added to cart</div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-logo">par<span>fum</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="men.html" class="active">Men</a>
+    <a href="women.html">Women</a>
+    <a href="cart.html" class="cart-link">
+      Your Cart
+      <span class="cart-badge" id="cart-badge">0</span>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">For Him</p>
+  <h1>Men's <em>Collection</em></h1>
+  <p>Bold woods, fresh citrus, and deep orientals — find the scent that defines you.</p>
+  <div class="hero-divider"><span>✦</span></div>
+</div>
+
+
+<!-- DIOR -->
+<div class="brand-section">
+  <div class="brand-header">
+    <div>
+      <p class="brand-label">Parisian Power</p>
+      <h2 class="brand-title"><em>Dior</em></h2>
+    </div>
+    <a href="#" class="view-more-btn">View More →</a>
+  </div>
+  <div class="cards-row">
+    <div class="brand-card">
+      <div class="card-img-placeholder">🌿</div>
+      <div class="card-body">
+        <h3>Sauvage</h3>
+        <p>Raw, bold, and impossibly fresh with bergamot and pepper</p>
+        <span class="card-price">₹9,500</span>
+        <button class="card-btn" onclick="addToCart('Dior Sauvage', 9500, '🌿')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🖤</div>
+      <div class="card-body">
+        <h3>Dior Homme</h3>
+        <p>Elegant iris and vetiver — quietly powerful</p>
+        <span class="card-price">₹8,200</span>
+        <button class="card-btn" onclick="addToCart('Dior Homme', 8200, '🖤')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🔥</div>
+      <div class="card-body">
+        <h3>Fahrenheit</h3>
+        <p>Heat, power, freedom — a classic masculine icon</p>
+        <span class="card-price">₹7,800</span>
+        <button class="card-btn" onclick="addToCart('Dior Fahrenheit', 7800, '🔥')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🌊</div>
+      <div class="card-body">
+        <h3>Eau Sauvage</h3>
+        <p>The original Sauvage — timeless citrus freshness</p>
+        <span class="card-price">₹6,900</span>
+        <button class="card-btn" onclick="addToCart('Dior Eau Sauvage', 6900, '🌊')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">⚡</div>
+      <div class="card-body">
+        <h3>Higher Energy</h3>
+        <p>Live fast, stay fresh — citrus and woody energy</p>
+        <span class="card-price">₹6,500</span>
+        <button class="card-btn" onclick="addToCart('Dior Higher Energy', 6500, '⚡')">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-sep"></div>
+
+<!-- VERSACE -->
+<div class="brand-section">
+  <div class="brand-header">
+    <div>
+      <p class="brand-label">Mediterranean Boldness</p>
+      <h2 class="brand-title"><em>Versace</em></h2>
+    </div>
+    <a href="#" class="view-more-btn">View More →</a>
+  </div>
+  <div class="cards-row">
+    <div class="brand-card">
+      <div class="card-img-placeholder">💙</div>
+      <div class="card-body">
+        <h3>Eros</h3>
+        <p>Strong, passionate mint and vanilla — for the bold</p>
+        <span class="card-price">₹7,200</span>
+        <button class="card-btn" onclick="addToCart('Versace Eros', 7200, '💙')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🌊</div>
+      <div class="card-body">
+        <h3>Dylan Blue</h3>
+        <p>Fresh aquatic with a masculine woody base</p>
+        <span class="card-price">₹6,800</span>
+        <button class="card-btn" onclick="addToCart('Versace Dylan Blue', 6800, '🌊')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🏛️</div>
+      <div class="card-body">
+        <h3>Pour Homme</h3>
+        <p>Clean, Mediterranean citrus and neroli</p>
+        <span class="card-price">₹5,900</span>
+        <button class="card-btn" onclick="addToCart('Versace Pour Homme', 5900, '🏛️')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🔱</div>
+      <div class="card-body">
+        <h3>Man Eau Fraîche</h3>
+        <p>Light, watery freshness for everyday wear</p>
+        <span class="card-price">₹5,500</span>
+        <button class="card-btn" onclick="addToCart('Versace Man Eau Fraîche', 5500, '🔱')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🌿</div>
+      <div class="card-body">
+        <h3>Eros Flame</h3>
+        <p>Fiery, spicy, and sensually warm</p>
+        <span class="card-price">₹7,600</span>
+        <button class="card-btn" onclick="addToCart('Versace Eros Flame', 7600, '🌿')">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-sep"></div>
+
+<!-- CALVIN KLEIN -->
+<div class="brand-section">
+  <div class="brand-header">
+    <div>
+      <p class="brand-label">Minimalist Cool</p>
+      <h2 class="brand-title"><em>Calvin Klein</em></h2>
+    </div>
+    <a href="#" class="view-more-btn">View More →</a>
+  </div>
+  <div class="cards-row">
+    <div class="brand-card">
+      <div class="card-img-placeholder">🤍</div>
+      <div class="card-body">
+        <h3>CK One</h3>
+        <p>The iconic fresh unisex classic, clean and light</p>
+        <span class="card-price">₹4,500</span>
+        <button class="card-btn" onclick="addToCart('CK One', 4500, '🤍')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">💚</div>
+      <div class="card-body">
+        <h3>Eternity for Men</h3>
+        <p>Green, clean, and calm — timeless masculinity</p>
+        <span class="card-price">₹4,800</span>
+        <button class="card-btn" onclick="addToCart('CK Eternity for Men', 4800, '💚')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🖤</div>
+      <div class="card-body">
+        <h3>Obsession for Men</h3>
+        <p>Deep, spicy, and warm — a dark classic</p>
+        <span class="card-price">₹4,200</span>
+        <button class="card-btn" onclick="addToCart('CK Obsession for Men', 4200, '🖤')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🌊</div>
+      <div class="card-body">
+        <h3>Escape for Men</h3>
+        <p>Fresh ocean vibes and fruity green notes</p>
+        <span class="card-price">₹3,900</span>
+        <button class="card-btn" onclick="addToCart('CK Escape for Men', 3900, '🌊')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🤎</div>
+      <div class="card-body">
+        <h3>Be</h3>
+        <p>Earthy, grounded, and effortlessly cool</p>
+        <span class="card-price">₹3,600</span>
+        <button class="card-btn" onclick="addToCart('CK Be', 3600, '🤎')">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-sep"></div>
+
+<!-- ARMANI -->
+<div class="brand-section">
+  <div class="brand-header">
+    <div>
+      <p class="brand-label">Italian Sophistication</p>
+      <h2 class="brand-title"><em>Giorgio Armani</em></h2>
+    </div>
+    <a href="#" class="view-more-btn">View More →</a>
+  </div>
+  <div class="cards-row">
+    <div class="brand-card">
+      <div class="card-img-placeholder">🌊</div>
+      <div class="card-body">
+        <h3>Acqua di Giò</h3>
+        <p>The ocean in a bottle — fresh, aquatic, iconic</p>
+        <span class="card-price">₹8,500</span>
+        <button class="card-btn" onclick="addToCart('Armani Acqua di Giò', 8500, '🌊')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🍯</div>
+      <div class="card-body">
+        <h3>Stronger With You</h3>
+        <p>Warm chestnut and vanilla — sweet masculinity</p>
+        <span class="card-price">₹7,900</span>
+        <button class="card-btn" onclick="addToCart('Armani Stronger With You', 7900, '🍯')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🖤</div>
+      <div class="card-body">
+        <h3>Armani Code</h3>
+        <p>Dark, seductive, and mysteriously elegant</p>
+        <span class="card-price">₹8,100</span>
+        <button class="card-btn" onclick="addToCart('Armani Code', 8100, '🖤')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🌿</div>
+      <div class="card-body">
+        <h3>Acqua di Giò Profumo</h3>
+        <p>Deeper, smoky version of the classic aquatic</p>
+        <span class="card-price">₹9,800</span>
+        <button class="card-btn" onclick="addToCart('Armani Acqua di Giò Profumo', 9800, '🌿')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">⚡</div>
+      <div class="card-body">
+        <h3>Emporio Stronger</h3>
+        <p>Intense cardamom and spicy woody warmth</p>
+        <span class="card-price">₹6,700</span>
+        <button class="card-btn" onclick="addToCart('Armani Emporio Stronger', 6700, '⚡')">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-sep"></div>
+
+<!-- CHANEL -->
+<div class="brand-section">
+  <div class="brand-header">
+    <div>
+      <p class="brand-label">Timeless Luxury</p>
+      <h2 class="brand-title"><em>Chanel</em></h2>
+    </div>
+    <a href="#" class="view-more-btn">View More →</a>
+  </div>
+  <div class="cards-row">
+    <div class="brand-card">
+      <div class="card-img-placeholder">🔵</div>
+      <div class="card-body">
+        <h3>Bleu de Chanel</h3>
+        <p>Woody, aromatic freshness — effortlessly refined</p>
+        <span class="card-price">₹11,500</span>
+        <button class="card-btn" onclick="addToCart('Bleu de Chanel', 11500, '🔵')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🌿</div>
+      <div class="card-body">
+        <h3>Allure Homme Sport</h3>
+        <p>Fresh, clean energy for the active man</p>
+        <span class="card-price">₹9,200</span>
+        <button class="card-btn" onclick="addToCart('Allure Homme Sport', 9200, '🌿')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🤍</div>
+      <div class="card-body">
+        <h3>Platinum Égoïste</h3>
+        <p>Rosewood and sandalwood — cool masculine elegance</p>
+        <span class="card-price">₹8,700</span>
+        <button class="card-btn" onclick="addToCart('Chanel Platinum Égoïste', 8700, '🤍')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🖤</div>
+      <div class="card-body">
+        <h3>Égoïste</h3>
+        <p>Bold, spicy, and undeniably charismatic</p>
+        <span class="card-price">₹8,400</span>
+        <button class="card-btn" onclick="addToCart('Chanel Égoïste', 8400, '🖤')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">✨</div>
+      <div class="card-body">
+        <h3>Pour Monsieur</h3>
+        <p>Classic citrus and spice — old-world gentleman</p>
+        <span class="card-price">₹7,600</span>
+        <button class="card-btn" onclick="addToCart('Chanel Pour Monsieur', 7600, '✨')">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-sep"></div>
+
+<!-- PACO RABANNE -->
+<div class="brand-section">
+  <div class="brand-header">
+    <div>
+      <p class="brand-label">Iconic Freshness</p>
+      <h2 class="brand-title"><em>Paco Rabanne</em></h2>
+    </div>
+    <a href="#" class="view-more-btn">View More →</a>
+  </div>
+  <div class="cards-row">
+    <div class="brand-card">
+      <div class="card-img-placeholder">💫</div>
+      <div class="card-body">
+        <h3>1 Million</h3>
+        <p>Gold, spice, and leather — luxury in a bottle</p>
+        <span class="card-price">₹8,900</span>
+        <button class="card-btn" onclick="addToCart('Paco Rabanne 1 Million', 8900, '💫')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🌊</div>
+      <div class="card-body">
+        <h3>Invictus</h3>
+        <p>Sporty, victorious aquatic freshness</p>
+        <span class="card-price">₹7,400</span>
+        <button class="card-btn" onclick="addToCart('Paco Rabanne Invictus', 7400, '🌊')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🔥</div>
+      <div class="card-body">
+        <h3>1 Million Lucky</h3>
+        <p>Fresh plum, hazelnut, and golden wood</p>
+        <span class="card-price">₹8,100</span>
+        <button class="card-btn" onclick="addToCart('Paco Rabanne 1 Million Lucky', 8100, '🔥')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">⚡</div>
+      <div class="card-body">
+        <h3>Invictus Legend</h3>
+        <p>Smoky and powerful — for the legendary man</p>
+        <span class="card-price">₹9,300</span>
+        <button class="card-btn" onclick="addToCart('Paco Rabanne Invictus Legend', 9300, '⚡')">Add to Cart</button>
+      </div>
+    </div>
+    <div class="brand-card">
+      <div class="card-img-placeholder">🌿</div>
+      <div class="card-body">
+        <h3>Ultrared Man</h3>
+        <p>Warm spices over a clean aquatic base</p>
+        <span class="card-price">₹6,200</span>
+        <button class="card-btn" onclick="addToCart('Paco Rabanne Ultrared Man', 6200, '🌿')">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+  <p>Made with <span>♡</span> for Men's Collection &nbsp;·&nbsp; Semester 2 Frontend Project</p>
+</footer>
+
+<script>
+  function getCart() {
+    try {
+      return JSON.parse(localStorage.getItem('parfum_cart')) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem('parfum_cart', JSON.stringify(cart));
+  }
+
+  function updateBadge() {
+    const cart = getCart();
+    const total = cart.reduce((sum, item) => sum + item.qty, 0);
+    const badge = document.getElementById('cart-badge');
+    badge.textContent = total;
+    badge.classList.toggle('visible', total > 0);
+  }
+
+  function showToast(name) {
+    const toast = document.getElementById('toast');
+    toast.textContent = '✓ ' + name + ' added to cart';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  function addToCart(name, price, emoji) {
+    const cart = getCart();
+    const existing = cart.find(item => item.name === name);
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({ name, price, emoji, qty: 1 });
+    }
+    saveCart(cart);
+    updateBadge();
+    showToast(name);
+
+    // briefly change the button text
+    const btns = document.querySelectorAll('.card-btn');
+    btns.forEach(btn => {
+      if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(name.replace(/'/g, "\\'"))) {
+        btn.textContent = '✓ Added!';
+        btn.classList.add('added');
+        setTimeout(() => {
+          btn.textContent = 'Add to Cart';
+          btn.classList.remove('added');
+        }, 1500);
+      }
+    });
+  }
+
+  // init badge on load
+  updateBadge();
+</script>
+
+</body>
+</html>
